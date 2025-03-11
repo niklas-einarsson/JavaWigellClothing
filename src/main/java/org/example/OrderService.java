@@ -31,8 +31,6 @@
         }
 
 
-
-
         public Order getOrder(int id) {
             return orders.stream().filter(order -> order.getId() == id).findFirst().orElse(null);
         }
@@ -48,8 +46,6 @@
                 order.removePropertyChangeListener(listener);
             }
         }
-
-
 
        public void addItemToOrder(int orderId, Clothes item){
             Order order = getOrder(orderId);
