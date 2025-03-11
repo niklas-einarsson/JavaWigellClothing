@@ -12,7 +12,6 @@ public class TShirt extends Clothes {
     }
 
     public TShirt() {
-        System.out.println("T-Shirt skapad med id " + id);
 
     }
 

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.BusinessObject;
 
 public abstract class BusinessObject {
 
@@ -13,7 +13,6 @@ public abstract class BusinessObject {
 
     public BusinessObject() {
         this.id = nextId++;
-
     }
 
     public int getId() {

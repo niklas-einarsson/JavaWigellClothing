@@ -1,4 +1,4 @@
-package org.example;
+package org.example.BusinessObject;
 
 public class Customer extends BusinessObject {
 
@@ -11,12 +11,11 @@ public class Customer extends BusinessObject {
         this.name = name;
         this.address = address;
         this.email = email;
+        System.out.println("Ny customer skapad med namn: " + name);
     }
 
     public Customer() {
         this.id = nextId++;
-        System.out.println("Ny customer skapad med id " + id);
-
     }
 
     public int getId() {

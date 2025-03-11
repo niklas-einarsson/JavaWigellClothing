@@ -1,7 +1,4 @@
-package org.example;
-
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+package org.example.BusinessObject;
 
 public class CEO extends BusinessObject {
 
@@ -9,14 +6,12 @@ public class CEO extends BusinessObject {
 
     public CEO(int id, String name) {
         id = nextId++;
-        System.out.println("Ny CEO skapad med id: " + getId());
-
+        this.name = name;
+        System.out.println("Ny CEO skapad med namn: " + name);
     }
 
     public CEO() {
         id=nextId++;
-        System.out.println("Ny CEO skapad med id: " + getId());
-
     }
 
     @Override

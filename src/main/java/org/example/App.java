@@ -1,15 +1,8 @@
 package org.example;
 
-import org.example.Builder.PantsBuilder;
-import org.example.Builder.SkirtBuilder;
-import org.example.Builder.TShirtBuilder;
-import org.example.Clothes.Clothes;
-import org.example.Clothes.Pants;
-import org.example.Clothes.Skirt;
-import org.example.Clothes.TShirt;
-import org.example.Command.*;
-
-import java.util.Scanner;
+import org.example.BusinessObject.CEO;
+import org.example.BusinessObject.Customer;
+import org.example.BusinessObject.Order;
 
 public class App {
     public static void main( String[] args ) {
@@ -18,10 +11,10 @@ public class App {
 
         Customer customer = new Customer(1,"Test Customer","Testgvägen 7", "customer@mail.com");
 
-        CEO ceo = new CEO();
+        CEO ceo = new CEO(1, "Herr Wigell");
         OrderCEOObserver orderCEOObserver = new OrderCEOObserver();
-        Order order = new Order(customer);
-        order.addPropertyChangeListener(orderCEOObserver);
+        OrderService.getInstance().createNewOrder(customer, orderCEOObserver);
+        Order order = OrderService.getInstance().getOrders().get(0);
 
         Menu menu = new Menu(order);
         menu.showMenu();

@@ -3,6 +3,8 @@ package org.example;
 import org.example.Builder.PantsBuilder;
 import org.example.Builder.SkirtBuilder;
 import org.example.Builder.TShirtBuilder;
+import org.example.BusinessObject.Order;
+import org.example.BusinessObject.Receipt;
 import org.example.Clothes.Pants;
 import org.example.Clothes.Skirt;
 import org.example.Clothes.TShirt;
@@ -30,7 +32,7 @@ public class Menu {
         if(order == null){
             System.out.println("Order is null");
         }
-        System.out.println("Current order: " + order);
+        System.out.println("Current orderID: " + order.getId());
         order.setStatus(OrderStatus.PENDING);
         System.out.println("Vad vill du köpa? (ange siffra)");
         System.out.println("1. T-Shirt \n2. Byxor \n3. Kjol");
@@ -62,6 +64,7 @@ public class Menu {
             case "T-Shirt":
                 // Builder
                 TShirt tShirt = new TShirtBuilder().addSize(size).addMaterial(material).addColor(color).build();
+                tShirt.setName("T-Shirt");
                 System.out.println("T-shirt skapad: " + tShirt);
                 order.setStatus(OrderStatus.ORDER_PLACED);
                 // Command
@@ -70,28 +73,32 @@ public class Menu {
                 tShirtPipeline.addCommand(new TShirtSleevesCommand(chooseTShirtSleeves()));
                 tShirtPipeline.execute(tShirt);
                 System.out.println("T-Shirt skapad med Command: " + tShirt);
-                order.addItem(tShirt);
+                OrderService.getInstance().addItemToOrder(order.getId(),tShirt);
+//                order.addItem(tShirt);
 //                System.out.println(order);
                 order.setStatus(OrderStatus.READY_FOR_DELIVERY);
                 break;
             case "Pants":
                 //Builder
                 Pants pants = new PantsBuilder().addSize(size).addMaterial(material).addColor(color).build();
+                pants.setName("Byxor");
                 System.out.println("Byxor skapade med Builder: " + pants);
                 order.setStatus(OrderStatus.ORDER_PLACED);
                 // Command
                 ClothingDetailPipeline pantsPipeline = new ClothingDetailPipeline();
-                pantsPipeline.addCommand(new PantsFitCommand(addPantsFit()));
-                pantsPipeline.addCommand(new PantsLengthCommand(addPantsLength()));
+                pantsPipeline.addCommand(new PantsFitCommand(choosePantsFit()));
+                pantsPipeline.addCommand(new PantsLengthCommand(choosePantsLength()));
                 pantsPipeline.execute(pants);
                 System.out.println("Byxor skapade med Command: " + pants);
-                order.addItem(pants);
+                OrderService.getInstance().addItemToOrder(order.getId(),pants);
+//                order.addItem(pants);
 //                System.out.println(order);
                 order.setStatus(OrderStatus.READY_FOR_DELIVERY);
                 break;
             case "Skirt":
                 // Builder
                 Skirt skirt = new SkirtBuilder().addSize(size).addMaterial(material).addColor(color).build();
+                skirt.setName("Kjol");
                 System.out.println("Kjol skapad: " + skirt);
                 order.setStatus(OrderStatus.ORDER_PLACED);
                 // Command
@@ -100,15 +107,17 @@ public class Menu {
                 skirtPipeline.addCommand(new SkirtWaistlineCommand(chooseSkirtWaistline()));
                 skirtPipeline.execute(skirt);
                 System.out.println("Kjol skapad med Command: " + skirt);
-                order.addItem(skirt);
+                OrderService.getInstance().addItemToOrder(order.getId(),skirt);
+//                order.addItem(skirt);
 //                System.out.println(order);
                 order.setStatus(OrderStatus.READY_FOR_DELIVERY);
                 break;
         }
-        System.out.println("Vill du köpa något mer?");
-        System.out.println("1. Ja, jag vill beställa ett till plagg \n 2. Nej, bekräfta beställning och visa kvitto");
-        int choice = scanner.nextInt();
+
         while(true) {
+            System.out.println("Vill du köpa något mer?");
+            System.out.println(" 1. Ja, jag vill beställa ett till plagg \n 2. Nej, bekräfta beställning och visa kvitto");
+            int choice = scanner.nextInt();
             if(choice == 1) {
                 showMenu();
                 break;
@@ -117,6 +126,8 @@ public class Menu {
                 generateReceipt().printReceipt();
                 System.out.println("Tack för att du handlar hos Wigell Clothing!");
                 break;
+            } else {
+                System.out.println("Ogiltigt val. Försök igen");
             }
         }
     }
@@ -169,7 +180,7 @@ public class Menu {
         }
     }
 
-    public String addPantsLength() {
+    public String choosePantsLength() {
         String length = "";
         System.out.println("Välj längd: ");
         System.out.println(" 1. Långa \n 2. Korta");
@@ -187,7 +198,7 @@ public class Menu {
         return length;
     }
 
-    public String addPantsFit() {
+    public String choosePantsFit() {
         String fit = "";
         System.out.println("Välj passform: ");
         System.out.println(" 1. Regular \n 2. Loose");
@@ -228,7 +239,7 @@ public class Menu {
     public String chooseSkirtWaistline() {
         String waistline = "";
         System.out.println("Välj midja");
-        System.out.println(" 1. Hög 2. Låg ");
+        System.out.println(" 1. Hög \n 2. Låg ");
         int waistlineChoice = scanner.nextInt();
         switch (waistlineChoice) {
             case 1:

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.BusinessObject;
 
 import org.example.Clothes.Clothes;
 import org.example.Clothes.Pants;
@@ -44,7 +44,9 @@ public class Receipt extends BusinessObject {
             if (items.isEmpty()) {
                 System.out.println("Inga plagg beställda");
             } else {
+
                 for (Clothes item : items) {
+                    System.out.println("-----------------------");
                     System.out.println("Typ: " + item.getClass().getSimpleName());
                     System.out.println("Pris: " + item.getPrice());
                     System.out.println("Storlek: " + item.getSize());
@@ -66,6 +68,7 @@ public class Receipt extends BusinessObject {
                     }
                 }
             }
+            System.out.println("-----------------------");
             System.out.println("SUMMA: " + order.getOrderPrice() + "SEK");
             System.out.println("Status: " + order.getStatus());
         }

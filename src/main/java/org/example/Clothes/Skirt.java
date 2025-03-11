@@ -13,7 +13,6 @@ public class Skirt extends Clothes {
     }
 
     public Skirt() {
-        System.out.println("Kjol skapad med id " + id);
 
     }
 

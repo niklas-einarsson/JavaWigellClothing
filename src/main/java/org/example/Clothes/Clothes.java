@@ -1,6 +1,6 @@
 package org.example.Clothes;
 
-import org.example.BusinessObject;
+import org.example.BusinessObject.BusinessObject;
 
 public abstract class Clothes extends BusinessObject {
 

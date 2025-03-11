@@ -12,7 +12,6 @@ public class Pants extends Clothes {
     }
 
     public Pants() {
-        System.out.println("Byxor skapade med ID " + id);
 
     }
 

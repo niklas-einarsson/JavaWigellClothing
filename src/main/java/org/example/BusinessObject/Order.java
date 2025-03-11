@@ -1,6 +1,7 @@
-package org.example;
+package org.example.BusinessObject;
 
 import org.example.Clothes.Clothes;
+import org.example.OrderStatus;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -31,6 +32,10 @@ public class Order extends BusinessObject {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         this.propertyChangeSupport.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        this.propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
 
