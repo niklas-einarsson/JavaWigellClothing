@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class Menu {
 
     private Order order;
-//    private CEO ceo = new CEO();
 
     Scanner scanner = new Scanner(System.in);
 
@@ -40,13 +39,13 @@ public class Menu {
         int choice = scanner.nextInt();
         switch (choice) {
             case 1:
-                createClothes("T-Shirt");
+                designAndOrderClothes("T-Shirt");
                 break;
             case 2:
-                createClothes("Pants");
+                designAndOrderClothes("Pants");
                 break;
             case 3:
-                createClothes("Skirt");
+                designAndOrderClothes("Skirt");
                 break;
             default:
                 System.out.println("Ogiltigt val!");
@@ -54,7 +53,7 @@ public class Menu {
         }
     }
 
-    public void createClothes(String type) {
+    public void designAndOrderClothes(String type) {
 
         String size = chooseSize();
         String material = chooseMaterial();
@@ -74,8 +73,6 @@ public class Menu {
                 tShirtPipeline.execute(tShirt);
                 System.out.println("T-Shirt skapad med Command: " + tShirt);
                 OrderService.getInstance().addItemToOrder(order.getId(),tShirt);
-//                order.addItem(tShirt);
-//                System.out.println(order);
                 order.setStatus(OrderStatus.READY_FOR_DELIVERY);
                 break;
             case "Pants":
@@ -91,8 +88,6 @@ public class Menu {
                 pantsPipeline.execute(pants);
                 System.out.println("Byxor skapade med Command: " + pants);
                 OrderService.getInstance().addItemToOrder(order.getId(),pants);
-//                order.addItem(pants);
-//                System.out.println(order);
                 order.setStatus(OrderStatus.READY_FOR_DELIVERY);
                 break;
             case "Skirt":
@@ -108,8 +103,6 @@ public class Menu {
                 skirtPipeline.execute(skirt);
                 System.out.println("Kjol skapad med Command: " + skirt);
                 OrderService.getInstance().addItemToOrder(order.getId(),skirt);
-//                order.addItem(skirt);
-//                System.out.println(order);
                 order.setStatus(OrderStatus.READY_FOR_DELIVERY);
                 break;
         }
